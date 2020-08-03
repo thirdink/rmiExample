@@ -7,8 +7,8 @@ import java.rmi.server.UnicastRemoteObject;
 public class Server implements Hello{
     public Server() {}
 
-    public String sayHello() {
-        return "Hello, world!";
+    public int sayHello(int a,int b) {
+        return a+b;
     }
 
     public static void main(String args[]) {
