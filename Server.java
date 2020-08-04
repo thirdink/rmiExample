@@ -3,22 +3,36 @@ import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Stack;
 
-public class Server implements Hello{
+public class Server implements Sorter{
     public Server() {}
 
-    public int sayHello(int a,int b) {
-        return a+b;
+    final Stack<Integer> stack = new Stack<Integer>();
+
+    public void pushValue(int val) {
+        stack.push(val);
     }
+
+    // public void pushOperator(String operator){
+    //     switch(operator){
+    //         case "ascending": 
+
+    //     }
+    // }
+
+    public int pop(){
+        return stack.pop();
+    } 
 
     public static void main(String args[]) {
         try {
             Server obj = new Server();
-            Hello stub = (Hello) UnicastRemoteObject.exportObject(obj, 0);
+            Sorter stub = (Sorter) UnicastRemoteObject.exportObject(obj, 0);
 
             // Bind the remote object's stub in the registry
             Registry registry = LocateRegistry.getRegistry();
-            registry.bind("Hello", stub);
+            registry.bind("Sorter", stub);
 
             System.err.println("Server ready");
         } catch (Exception e) {

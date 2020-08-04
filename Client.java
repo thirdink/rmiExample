@@ -7,8 +7,10 @@ public class Client {
         String host = (args.length < 1) ? null : args[0];
         try {
             Registry registry = LocateRegistry.getRegistry(host);
-            Hello stub = (Hello) registry.lookup("Hello");
-            int response = stub.sayHello(5,5);
+            Sorter stub = (Sorter) registry.lookup("Sorter");
+            stub.pushValue(5);
+            stub.pushValue(15);
+            int response = stub.pop();
             System.out.println(response);
         } catch (Exception e) {
             System.err.println("Client exception: " + e.toString());
